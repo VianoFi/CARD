@@ -1,0 +1,19 @@
+﻿@model CARD.Models.PokemonCard
+@{
+    ViewData["Title"] = "Elimina Carta Pokémon";
+}
+
+<h2>Sei sicuro di voler eliminare questa carta?</h2>
+
+<div>
+    <h4>@Model.Nome</h4>
+    <p><strong>Valore:</strong> @Model.Valore €</p>
+    <p><strong>Espansione:</strong> @Model.Espansione</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Elimina</button>
+    <a asp-action="Index" class="btn btn-secondary">Annulla</a>
+</form>
+
