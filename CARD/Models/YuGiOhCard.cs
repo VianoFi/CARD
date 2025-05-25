@@ -1,26 +1,22 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace CardCollectionApp.Models
+namespace CARD.Models
 {
     public class YuGiOhCard
     {
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required, StringLength(50)]
         public string Nome { get; set; }
 
-        [Required]
-        [Range(0, 10000)]
-        public decimal Valore { get; set; }
+        [Required, StringLength(50)]
+        public string Espansione { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        [RegularExpression(@"^[A-Z0-9\-]+$")]
+        [Required, RegularExpression(@"^[0-9]{1,3}$")]
         public string NumeroSerie { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string Espansione { get; set; }
+        [Range(0, 10000000)]
+        public decimal Valore { get; set; }
     }
 }
+
