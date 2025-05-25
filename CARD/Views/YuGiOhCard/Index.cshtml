@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CARD.Models.YuGiOhCard>
+
+@{
+    ViewData["Title"] = "Carte YuGiOh";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Aggiungi Nuova Carta</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Espansione</th>
+            <th>Numero Serie</th>
+            <th>Valore</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var card in Model)
+        {
+            <tr>
+                <td>@card.Nome</td>
+                <td>@card.Espansione</td>
+                <td>@card.NumeroSerie</td>
+                <td>@card.Valore €</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@card.Id" class="btn btn-primary btn-sm">Modifica</a>
+                    <a asp-action="Details" asp-route-id="@card.Id" class="btn btn-info btn-sm">Dettagli</a>
+                    <a asp-action="Delete" asp-route-id="@card.Id" class="btn btn-danger btn-sm">Elimina</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

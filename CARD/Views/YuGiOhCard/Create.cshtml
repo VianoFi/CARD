@@ -1,0 +1,38 @@
+﻿@model CARD.Models.YuGiOhCard
+
+@{
+    ViewData["Title"] = "Aggiungi Carta YuGiOh";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group mb-3">
+        <label asp-for="Nome" class="form-label"></label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Espansione" class="form-label"></label>
+        <input asp-for="Espansione" class="form-control" />
+        <span asp-validation-for="Espansione" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="NumeroSerie" class="form-label"></label>
+        <input asp-for="NumeroSerie" class="form-control" />
+        <span asp-validation-for="NumeroSerie" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Valore" class="form-label"></label>
+        <input asp-for="Valore" class="form-control" />
+        <span asp-validation-for="Valore" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Aggiungi</button>
+    <a asp-action="Index" class="btn btn-secondary">Annulla</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

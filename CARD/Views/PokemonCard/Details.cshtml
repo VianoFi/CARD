@@ -1,0 +1,13 @@
+﻿@model CARD.Models.PokemonCard
+@{
+    ViewData["Title"] = "Dettagli Carta Pokémon";
+}
+
+<h2>@Model.Nome</h2>
+
+<p><strong>Valore:</strong> @Model.Valore €</p>
+<p><strong>Numero di Serie:</strong> @Model.NumeroSerie</p>
+<p><strong>Espansione:</strong> @Model.Espansione</p>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Modifica</a>
+<a asp-action="Index" class="btn btn-secondary">Torna alla lista</a>
