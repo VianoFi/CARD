@@ -1,22 +1,134 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Reset base */
 body {
-  margin-bottom: 60px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar-brand,
+.nav-link {
+    color: #fff !important;
+}
+
+    .nav-link:hover {
+        color: #ffc107 !important;
+    }
+
+/* Titoli */
+h1, h2, h3, h4 {
+    font-weight: 600;
+}
+
+/* Pulsanti generici */
+.btn {
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+/* Colori personalizzati per le 3 categorie */
+.btn-warning {
+    background-color: #ffcb05;
+    color: #1a1a1a;
+    border: none;
+}
+
+.btn-danger {
+    background-color: #b22222;
+    color: #fff;
+    border: none;
+}
+
+.btn-success {
+    background-color: #2e7d32;
+    color: #fff;
+    border: none;
+}
+
+.btn-dark {
+    background-color: #343a40;
+    color: #fff;
+    border: none;
+}
+
+/* Cards della dashboard */
+.card {
+    border-width: 3px;
+    border-radius: 1rem;
+    margin-bottom: 20px;
+}
+
+/* Dashboard valori */
+.card-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Tabelle */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #343a40;
+    color: white;
+}
+
+/* Moduli */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .btn {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .card {
+        margin-bottom: 15px;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
 }
