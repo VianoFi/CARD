@@ -4,6 +4,16 @@ using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyCorsPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:7058") // <-- la tua origine consentita
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -12,6 +22,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 
 var app = builder.Build();
+
+// Applica la policy CORS personalizzata
+app.UseCors("MyCorsPolicy");
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+
+app.MapControllers(); // Se usi controller
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
