@@ -1,59 +1,64 @@
 ﻿using CARD.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configurazione CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("MyCorsPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:7058") // <-- la tua origine consentita
+        policy.WithOrigins("http://localhost:7058", "https://localhost:7059") // Aggiungi anche HTTPS
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials(); // Se usi autenticazione/cookies
     });
 });
 
-// Add services to the container.
+// Add services to the container
 builder.Services.AddControllersWithViews();
 
+// Configurazione DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
 var app = builder.Build();
 
-// Applica la policy CORS personalizzata
-app.UseCors("MyCorsPolicy");
-
-app.UseHttpsRedirection();
-app.UseAuthorization();
-
-app.MapControllers(); // Se usi controller
-
-// Configure the HTTP request pipeline.
+// Configura la pipeline HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
+// IMPORTANTE: L'ordine dei middleware è cruciale
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
+// CORS deve essere prima di Authorization
+app.UseCors("MyCorsPolicy");
 app.UseAuthorization();
 
+// Mapping dei controller
+app.MapControllers();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+// Database migration al startup
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.Migrate();
+    try
+    {
+        db.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Errore durante la migrazione del database");
+    }
 }
 
 app.Run();
