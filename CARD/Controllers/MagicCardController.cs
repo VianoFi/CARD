@@ -117,5 +117,32 @@ namespace CARD.Controllers
         {
             return _context.MagicCards.Any(e => e.Id == id);
         }
+
+        // ---------------------------
+        // SESSIONE
+        // ---------------------------
+
+        // Scrive in sessione
+        public IActionResult SetSession()
+        {
+            HttpContext.Session.SetString(MagicCard.SessionKeyName, "The Doctor");
+            HttpContext.Session.SetInt32(MagicCard.SessionKeyAge, 73);
+
+            return Content("Valori salvati in sessione.");
+        }
+
+        // Legge dalla sessione
+        public IActionResult GetSession()
+        {
+            var name = HttpContext.Session.GetString(MagicCard.SessionKeyName);
+            var age = HttpContext.Session.GetInt32(MagicCard.SessionKeyAge);
+
+            if (!string.IsNullOrEmpty(name) && age.HasValue)
+            {
+                return Content($"Nome dalla sessione: {name}, Età: {age}");
+            }
+
+            return Content("Nessun valore trovato in sessione.");
+        }
     }
 }
