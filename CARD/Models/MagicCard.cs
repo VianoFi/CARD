@@ -17,6 +17,9 @@ namespace CARD.Models
 
         [Range(0, 30000)]
         public decimal Valore { get; set; }
+
+        // --- Chiavi di sessione ---
+        public const string SessionKeyName = "_Name";
+        public const string SessionKeyAge = "_Age";
     }
 }
-
