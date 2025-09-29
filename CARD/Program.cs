@@ -1,6 +1,7 @@
 ﻿using CARD.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Stripe; // 👈 aggiungi questa using
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,9 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+// 👇 Configurazione Stripe
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 var app = builder.Build();
 

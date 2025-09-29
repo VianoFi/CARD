@@ -11,4 +11,35 @@
         <a href="/MagicCard" class="btn btn-success btn-lg px-4 shadow">Carte Magic</a>
         <a href="/Home/Dashboard" class="btn btn-dark btn-lg px-4 shadow">Dashboard</a>
     </div>
+
+    @* Messaggi TempData per Success/Cancel *@
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mt-3">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger mt-3">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+</div>
+
+@* Donazioni in basso a sinistra *@
+<div class="position-absolute bottom-0 start-0 m-3">
+    <form asp-controller="Home" asp-action="Donate" method="post" class="d-flex gap-2 align-items-center">
+        <select name="amount" class="form-select" required>
+            <option value="" disabled selected>Seleziona importo</option>
+            <option value="5">5€</option>
+            <option value="10">10€</option>
+            <option value="20">20€</option>
+            <option value="50">50€</option>
+            <option value="100">100€</option>
+            <option value="200">200€</option>
+            <option value="500">500€</option>
+        </select>
+        <button type="submit" class="btn btn-primary shadow">Dona</button>
+    </form>
 </div>
