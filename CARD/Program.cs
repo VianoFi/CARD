@@ -1,62 +1,57 @@
 ﻿using CARD.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using Stripe; // 👈 aggiungi questa using
+using Stripe;
+using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("MyCorsPolicy", policy =>
     {
-        policy.WithOrigins("http://192.168.1.214:7058") // <-- IP aggiornato
+        policy.WithOrigins("http://192.168.1.214:7058")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
 });
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// <<< Necessario per le sessioni >>>
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.Cookie.Name = ".CARD.Session";
-    options.IdleTimeout = TimeSpan.FromMinutes(20); // durata sessione
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
 
-// 👇 Configurazione Stripe
+//Configurazione upload file
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 10 * 1024 * 1024; // 10 MB
+});
+
 StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 var app = builder.Build();
 
-// Applica la policy CORS personalizzata
-app.UseCors("MyCorsPolicy");
-
-app.UseHttpsRedirection();
-app.UseAuthorization();
-
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
+app.UseCors("MyCorsPolicy");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
-// <<< Abilitazione sessioni >>>
 app.UseSession();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
