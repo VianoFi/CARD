@@ -17,6 +17,7 @@
             font-weight: 600;
             letter-spacing: 0.05em;
         }
+
         .navbar-brand {
             font-family: 'Segoe UI Black', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 1.9rem;
@@ -24,27 +25,32 @@
             text-shadow: 0 0 6px #00c8f8aa;
             transition: color 0.3s ease;
         }
-        .navbar-brand:hover {
-            color: #33d7ff !important;
-            text-shadow: 0 0 10px #33d7ffcc;
-        }
+
+            .navbar-brand:hover {
+                color: #33d7ff !important;
+                text-shadow: 0 0 10px #33d7ffcc;
+            }
+
         .nav-link {
             color: #cbd5e1 !important;
             transition: color 0.25s ease;
         }
-        .nav-link:hover, .nav-link.active {
-            color: #00c8f8 !important;
-            text-shadow: 0 0 6px #00c8f8aa;
-        }
+
+            .nav-link:hover, .nav-link.active {
+                color: #00c8f8 !important;
+                text-shadow: 0 0 6px #00c8f8aa;
+            }
 
         /* Hamburger menu */
         .navbar-toggler {
             border: 2px solid #00c8f8;
             transition: background-color 0.3s ease;
         }
-        .navbar-toggler:hover {
-            background-color: #00c8f8;
-        }
+
+            .navbar-toggler:hover {
+                background-color: #00c8f8;
+            }
+
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml;charset=utf8,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='%2300c8f8' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
@@ -86,11 +92,12 @@
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
             letter-spacing: 0.04em;
         }
-        .btn-home:hover, .btn-home:focus {
-            background-color: #33d7ff;
-            box-shadow: 0 0 14px #33d7ffcc;
-            color: #0a1929 !important;
-        }
+
+            .btn-home:hover, .btn-home:focus {
+                background-color: #33d7ff;
+                box-shadow: 0 0 14px #33d7ffcc;
+                color: #0a1929 !important;
+            }
     </style>
 </head>
 <body>
@@ -110,6 +117,10 @@
                     <ul class="navbar-nav ms-auto align-items-center">
                         <li class="nav-item">
                             <a class="btn btn-home nav-link px-4" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        
+                        <li class="nav-item ms-2">
+                            <a class="btn btn-home nav-link px-4" asp-area="" asp-controller="Upload" asp-action="UploadFile">Upload</a>
                         </li>
                     </ul>
                 </div>
